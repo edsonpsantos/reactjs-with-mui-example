@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 
 // To facilitate import
 export const App = () => {
