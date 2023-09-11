@@ -17,5 +17,4 @@ The repository contains all code based with Typescript and MUI, with access to a
 🚀 This app is under development, so new features are being created daily.
 
 
-
 🙏🏽 Thanks for your attention ! 
