@@ -12,10 +12,49 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useDrawerContext } from "../../context";
+import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
 
 interface IDrawerMenuProps {
   children: React.ReactNode;
 }
+
+interface IListItemLinkProps {
+  label: string;
+  icon: string;
+  to: string;
+  onClick: (() => void) | undefined; //To close drawerMenu
+}
+
+const ListItemLink: React.FC<IListItemLinkProps> = ({
+  to,
+  icon,
+  label,
+  onClick,
+}) => {
+  const navigate = useNavigate();
+
+  //To check selected route
+  //Verify if the menu option is selected  equals browser url
+  const resolvedPath = useResolvedPath(to);
+  const match = useMatch({ path: resolvedPath.pathname, end: false });
+
+  //Not use useCallback because here is used only here and not for every part of app
+  const handleClick = () => {
+    navigate(to);
+
+    //This function is undefined? is not execute this function
+    onClick?.();
+  };
+
+  return (
+    <ListItemButton selected={!!match} onClick={handleClick}>
+      <ListItemIcon>
+        <Icon>{icon}</Icon>
+      </ListItemIcon>
+      <ListItemText primary={label} />
+    </ListItemButton>
+  );
+};
 
 export const DrawerMenu: React.FC<IDrawerMenuProps> = ({ children }) => {
   const theme = useTheme();
@@ -23,7 +62,7 @@ export const DrawerMenu: React.FC<IDrawerMenuProps> = ({ children }) => {
   //MediaQuery control screen size to resize Drawer menu
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const { isDrawerOpen, toggleDrawerOpen } = useDrawerContext();
+  const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
 
   return (
     <>
@@ -53,12 +92,15 @@ export const DrawerMenu: React.FC<IDrawerMenuProps> = ({ children }) => {
           <Divider />
           <Box flex={1}>
             <List component="nav">
-              <ListItemButton>
-                <ListItemIcon>
-                  <Icon>home</Icon>
-                </ListItemIcon>
-                <ListItemText primary="Home" />
-              </ListItemButton>
+              {drawerOptions.map((drawerOption) => (
+                <ListItemLink
+                  key={drawerOption.path}
+                  icon={drawerOption.icon}
+                  label={drawerOption.label}
+                  to="/home"
+                  onClick={smDown ? toggleDrawerOpen : undefined}
+                />
+              ))}
             </List>
           </Box>
         </Box>
