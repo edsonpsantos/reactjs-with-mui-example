@@ -5,16 +5,16 @@ import { createContext, useCallback, useContext, useState } from "react";
 
 interface IDrawerContextData {
   isDrawerOpen: boolean;
-  drawerOptions: iDrawerOptions[];
+  drawerOptions: IDrawerOptions[];
   toggleDrawerOpen: () => void;
-  setDrawerOptions: (newDrawerOptions: iDrawerOptions[]) => void;
+  setDrawerOptions: (newDrawerOptions: IDrawerOptions[]) => void;
 }
 
 interface IAppDrawerProvideProps {
   children: React.ReactNode;
 }
 
-interface iDrawerOptions {
+interface IDrawerOptions {
   icon: string;
   label: string;
   path: string;
@@ -33,7 +33,7 @@ export const DrawerProvider: React.FC<IAppDrawerProvideProps> = ({
   children,
 }) => {
   const [isDrawerOpen, setisDrawerOpen] = useState(false);
-  const [drawerOptions, setDrawerOptions] = useState<iDrawerOptions[]>([]);
+  const [drawerOptions, setDrawerOptions] = useState<IDrawerOptions[]>([]);
 
   // store functions in react memory, and was update when var inside dependency array is updated
   const toggleDrawerOpen = useCallback(() => {
@@ -42,7 +42,7 @@ export const DrawerProvider: React.FC<IAppDrawerProvideProps> = ({
 
   //Generic: Possible to set item at menu list
   const handleSetDrawerOptions = useCallback(
-    (newDrawerOptions: iDrawerOptions[]) => {
+    (newDrawerOptions: IDrawerOptions[]) => {
       setDrawerOptions(newDrawerOptions);
     },
     []

@@ -1,3 +1,5 @@
+import React from "react";
+import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
 import {
   Avatar,
   Divider,
@@ -12,7 +14,6 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useDrawerContext } from "../../context";
-import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
 
 interface IDrawerMenuProps {
   children: React.ReactNode;
@@ -97,7 +98,7 @@ export const DrawerMenu: React.FC<IDrawerMenuProps> = ({ children }) => {
                   key={drawerOption.path}
                   icon={drawerOption.icon}
                   label={drawerOption.label}
-                  to="/home"
+                  to={drawerOption.path}
                   onClick={smDown ? toggleDrawerOpen : undefined}
                 />
               ))}

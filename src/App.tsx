@@ -1,5 +1,6 @@
-import { BrowserRouter } from "react-router-dom";
+import React from "react";
 import { AppRoutes } from "./routes";
+import { BrowserRouter } from "react-router-dom";
 
 import { DrawerMenu } from "./shared/components";
 import { DrawerProvider, AppThemeProvider } from "./shared/context";
@@ -10,9 +11,11 @@ export const App = () => {
     <AppThemeProvider>
       <DrawerProvider>
         <BrowserRouter>
+
           <DrawerMenu>
             <AppRoutes></AppRoutes>
           </DrawerMenu>
+          
         </BrowserRouter>
       </DrawerProvider>
     </AppThemeProvider>
