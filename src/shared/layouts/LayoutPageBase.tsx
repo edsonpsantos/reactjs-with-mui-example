@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Box } from "@mui/system";
 import {
   Icon,
@@ -10,17 +10,20 @@ import {
 import { useDrawerContext } from "../context";
 
 interface ILayoutPageBaseProps {
-  children: React.ReactNode;
+  children: ReactNode;
   title: string;
+  toolbar: ReactNode | undefined;
 }
 
 export const LayoutPageBase: React.FC<ILayoutPageBaseProps> = ({
   children,
   title,
+  toolbar,
 }) => {
   const theme = useTheme();
   const smDom = useMediaQuery(theme.breakpoints.down("sm"));
-  const {toggleDrawerOpen} = useDrawerContext()
+  const mdDom = useMediaQuery(theme.breakpoints.down("md"));
+  const { toggleDrawerOpen } = useDrawerContext();
 
   return (
     <Box height={"100%"} display={"flex"} flexDirection={"column"} gap={1}>
@@ -28,7 +31,7 @@ export const LayoutPageBase: React.FC<ILayoutPageBaseProps> = ({
         display={"flex"}
         alignItems={"center"}
         padding={1}
-        height={theme.spacing(12)}
+        height={theme.spacing(smDom ? 6 : mdDom ? 8 : 12)}
         gap={1}
       >
         {smDom && (
@@ -36,14 +39,32 @@ export const LayoutPageBase: React.FC<ILayoutPageBaseProps> = ({
             <Icon>menu</Icon>
           </IconButton>
         )}
-        <Typography variant="h5">{title}</Typography>
+
+        {/*
+          overflow={ 'hidden' } - cut the text in the end of the page
+          textOverflow={"ellipsis"} add ... in the end of the text
+        */}
+        <Typography
+          variant={smDom ? "h5" : mdDom ? "h4" : "h3"}
+          whiteSpace={"nowrap"}
+          overflow={"hidden"}
+          textOverflow={"ellipsis"}
+        >
+          {title}
+        </Typography>
       </Box>
 
-      <Box>
-        <Typography>Toolbar</Typography>
-      </Box>
+      {toolbar && (
+        <Box>
+          <Typography>{toolbar}</Typography>
+        </Box>
+      )}
 
-      <Box>{children}</Box>
+      {/* overflow={'auto'}
+      Incluing scroll only inside this box */}
+      <Box flex={1} overflow={"auto"}>
+        {children}
+      </Box>
     </Box>
   );
 };
