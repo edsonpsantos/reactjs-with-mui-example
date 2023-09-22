@@ -13,7 +13,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useDrawerContext } from "../../context";
+import { useAppThemeContext, useDrawerContext } from "../../context";
 
 interface IDrawerMenuProps {
   children: React.ReactNode;
@@ -62,8 +62,9 @@ export const DrawerMenu: React.FC<IDrawerMenuProps> = ({ children }) => {
 
   //MediaQuery control screen size to resize Drawer menu
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
-
   const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
+
+  const { toggleTheme } = useAppThemeContext();
 
   return (
     <>
@@ -102,6 +103,17 @@ export const DrawerMenu: React.FC<IDrawerMenuProps> = ({ children }) => {
                   onClick={smDown ? toggleDrawerOpen : undefined}
                 />
               ))}
+            </List>
+          </Box>
+
+          <Box>
+            <List component="nav">
+              <ListItemButton onClick={toggleTheme}>
+                <ListItemIcon>
+                  <Icon>{ theme.palette.mode ==='dark'? 'light_mode' : 'dark_mode' }</Icon>
+                </ListItemIcon>
+                <ListItemText primary={theme.palette.mode ==='dark'?'Light Mode':'Dark Mode'} />
+              </ListItemButton>
             </List>
           </Box>
         </Box>
