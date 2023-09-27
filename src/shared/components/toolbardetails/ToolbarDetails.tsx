@@ -1,7 +1,35 @@
 import React from "react";
 import { Box, Button, Divider, Icon, Paper, useTheme } from "@mui/material";
 
-export const ToolbarDetails: React.FC = () => {
+interface IToolbarDetailsProps {
+  textButtonNew?: string;
+
+  showButtonNew?: boolean;
+  showButtonBack?: boolean;
+  showButtonDelete?: boolean;
+  showButtonSave?: boolean;
+  showButtonSaveAndBack?: boolean;
+
+  onClickButtonNew?: () => void;
+  onClickButtonBack?: () => void;
+  onClickButtonDelete?: () => void;
+  onClickButtonSave?: () => void;
+  onClickButtonSaveAndBack?: () => void;
+}
+
+export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
+  textButtonNew = "New",
+  showButtonNew = true,
+  showButtonBack = true,
+  showButtonDelete = true,
+  showButtonSave = true,
+  showButtonSaveAndBack = false,
+  onClickButtonNew,
+  onClickButtonBack,
+  onClickButtonDelete,
+  onClickButtonSave,
+  onClickButtonSaveAndBack,
+}) => {
   const theme = useTheme();
 
   return (
@@ -15,55 +43,63 @@ export const ToolbarDetails: React.FC = () => {
       height={theme.spacing(5)}
       component={Paper}
     >
-      <Button
-        color="primary"
-        disableElevation
-        variant="outlined"
-        startIcon={<Icon>add</Icon>}
-      >
-        New
-      </Button>
-      <Button
-        color="primary"
-        disableElevation
-        variant="contained"
-        startIcon={<Icon>check</Icon>}
-      >
-        Save
-      </Button>
-      <Button
-        color="primary"
-        disableElevation
-        variant="outlined"
-        startIcon={<Icon>check</Icon>}
-      >
-        Save and Back
-      </Button>
-      <Button
-        color="primary"
-        disableElevation
-        variant="outlined"
-        startIcon={<Icon>delete_outline</Icon>}
-      >
-        Delete
-      </Button>
-      <Button
-        color="primary"
-        disableElevation
-        variant="outlined"
-        startIcon={<Icon>add</Icon>}
-      >
-        New
-      </Button>
+      {showButtonNew && (
+        <Button
+          color="primary"
+          disableElevation
+          variant="outlined"
+          onClick={onClickButtonNew}
+          startIcon={<Icon>add</Icon>}
+        >
+          {textButtonNew}
+        </Button>
+      )}
+      {showButtonSave && (
+        <Button
+          color="primary"
+          disableElevation
+          variant="contained"
+          onClick={onClickButtonSave}
+          startIcon={<Icon>check</Icon>}
+        >
+          Save
+        </Button>
+      )}
+      {showButtonSaveAndBack && (
+        <Button
+          color="primary"
+          disableElevation
+          variant="outlined"
+          onClick={onClickButtonSaveAndBack}
+          startIcon={<Icon>check</Icon>}
+        >
+          Save and Back
+        </Button>
+      )}
+      {showButtonDelete && (
+        <Button
+          color="primary"
+          disableElevation
+          variant="outlined"
+          onClick={onClickButtonDelete}
+          startIcon={<Icon>delete_outline</Icon>}
+        >
+          Delete
+        </Button>
+      )}
+
       <Divider variant="middle" orientation="vertical" />
-      <Button
-        color="primary"
-        disableElevation
-        variant="outlined"
-        startIcon={<Icon>arrow_back_ios</Icon>}
-      >
-        Back
-      </Button>
+      {showButtonBack && (
+        <Button
+          color="primary"
+          disableElevation
+          variant="outlined"
+          onClick={onClickButtonBack}
+          startIcon={<Icon>arrow_back_ios</Icon>}
+        >
+          Back
+        </Button>
+      )}
     </Box>
   );
 };
