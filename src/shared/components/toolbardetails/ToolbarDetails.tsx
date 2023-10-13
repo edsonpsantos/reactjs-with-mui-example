@@ -1,14 +1,31 @@
 import React from "react";
-import { Box, Button, Divider, Icon, Paper, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  Icon,
+  Paper,
+  Skeleton,
+  useTheme,
+} from "@mui/material";
 
 interface IToolbarDetailsProps {
   textButtonNew?: string;
 
   showButtonNew?: boolean;
+  showLoadingButtonNew?: boolean;
+
   showButtonBack?: boolean;
+  showLoadingButtonBack?: boolean;
+
   showButtonDelete?: boolean;
+  showLoadingButtonDelete?: boolean;
+
   showButtonSave?: boolean;
+  showloadingButtonSave?: boolean;
+
   showButtonSaveAndBack?: boolean;
+  showLoadingButtonSaveAndBack?: boolean;
 
   onClickButtonNew?: () => void;
   onClickButtonBack?: () => void;
@@ -19,11 +36,22 @@ interface IToolbarDetailsProps {
 
 export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
   textButtonNew = "New",
+
   showButtonNew = true,
+  showLoadingButtonNew = false,
+
   showButtonBack = true,
+  showLoadingButtonBack = false,
+
   showButtonDelete = true,
+  showLoadingButtonDelete = false,
+
   showButtonSave = true,
+  showloadingButtonSave = false,
+
   showButtonSaveAndBack = false,
+  showLoadingButtonSaveAndBack = false,
+
   onClickButtonNew,
   onClickButtonBack,
   onClickButtonDelete,
@@ -43,18 +71,8 @@ export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
       height={theme.spacing(5)}
       component={Paper}
     >
-      {showButtonNew && (
-        <Button
-          color="primary"
-          disableElevation
-          variant="outlined"
-          onClick={onClickButtonNew}
-          startIcon={<Icon>add</Icon>}
-        >
-          {textButtonNew}
-        </Button>
-      )}
-      {showButtonSave && (
+      {showloadingButtonSave && <Skeleton width={110} height={60} />}
+      {showButtonSave && !showloadingButtonSave && (
         <Button
           color="primary"
           disableElevation
@@ -65,7 +83,9 @@ export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
           Save
         </Button>
       )}
-      {showButtonSaveAndBack && (
+
+      {showLoadingButtonSaveAndBack && <Skeleton width={180} height={60} />}
+      {showButtonSaveAndBack && !showLoadingButtonSaveAndBack && (
         <Button
           color="primary"
           disableElevation
@@ -76,7 +96,9 @@ export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
           Save and Back
         </Button>
       )}
-      {showButtonDelete && (
+
+      {showLoadingButtonDelete && <Skeleton width={110} height={60} />}
+      {showButtonDelete && !showLoadingButtonDelete && (
         <Button
           color="primary"
           disableElevation
@@ -88,8 +110,22 @@ export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
         </Button>
       )}
 
+      {showLoadingButtonNew && <Skeleton width={110} height={60} />}
+      {showButtonNew && !showLoadingButtonNew && (
+        <Button
+          color="primary"
+          disableElevation
+          variant="outlined"
+          onClick={onClickButtonNew}
+          startIcon={<Icon>add</Icon>}
+        >
+          New
+        </Button>
+      )}
       <Divider variant="middle" orientation="vertical" />
-      {showButtonBack && (
+
+      {showLoadingButtonBack && <Skeleton width={110} height={60} />}
+      {showButtonBack && !showLoadingButtonBack && (
         <Button
           color="primary"
           disableElevation
