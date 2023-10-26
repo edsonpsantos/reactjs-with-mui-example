@@ -32,7 +32,7 @@ interface IToolbarDetailsProps {
   showLoadingButtonDelete?: boolean;
 
   showButtonSave?: boolean;
-  showloadingButtonSave?: boolean;
+  showLoadingButtonSave?: boolean;
 
   showButtonSaveAndBack?: boolean;
   showLoadingButtonSaveAndBack?: boolean;
@@ -57,7 +57,7 @@ export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
   showLoadingButtonDelete = false,
 
   showButtonSave = true,
-  showloadingButtonSave = false,
+  showLoadingButtonSave = false,
 
   showButtonSaveAndBack = false,
   showLoadingButtonSaveAndBack = false,
@@ -84,9 +84,11 @@ export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
       height={theme.spacing(5)}
       component={Paper}
     >
-      {showloadingButtonSave && <Skeleton width={110} height={60} />}
+      {showLoadingButtonSave && (
+        <Skeleton width={smDom ? 48 : 110} height={60} />
+      )}
       {showButtonSave &&
-        !showloadingButtonSave &&
+        !showLoadingButtonSave &&
         (smDom ? (
           <IconButton size="large" color="primary" onClick={onClickButtonSave}>
             <SaveOutlined fontSize="medium"></SaveOutlined>
@@ -111,7 +113,7 @@ export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
         ))}
 
       {showLoadingButtonSaveAndBack && !smDom && !mdDom && (
-        <Skeleton width={180} height={60} />
+        <Skeleton width={smDom ? 48 : 180} height={smDom ? 32 : 60} />
       )}
       {showButtonSaveAndBack &&
         !showLoadingButtonSaveAndBack &&
@@ -135,7 +137,9 @@ export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
           </Button>
         )}
 
-      {showLoadingButtonDelete && <Skeleton width={110} height={60} />}
+      {showLoadingButtonDelete && (
+        <Skeleton width={smDom ? 48 : 110} height={60} />
+      )}
       {showButtonDelete &&
         !showLoadingButtonDelete &&
         (smDom ? (
@@ -187,7 +191,9 @@ export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
           showButtonSaveAndBack) && (
           <Divider variant="middle" orientation="vertical" />
         )}
-      {showLoadingButtonBack && <Skeleton width={110} height={60} />}
+      {showLoadingButtonBack && (
+        <Skeleton width={smDom ? 48 : 110} height={60} />
+      )}
       {showButtonBack &&
         !showLoadingButtonBack &&
         (smDom ? (

@@ -5,6 +5,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "backend": "json-server -w -p 3333 ./mock/db.json",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
