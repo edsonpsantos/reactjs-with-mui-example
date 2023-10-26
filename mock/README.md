@@ -3,12 +3,12 @@
 1. Open a new terminal
 2. Execute follow script:
 
-   ```yarn backend```
+   `yarn mock`
 
    or
 
-   ```yarn run json-server -w -p 3333 ./mock/db.json```
+   `yarn run json-server -w -p 3333 ./mock/db.json`
 
 If you are using npm:
 
-```npm run json-server -w -p 3333 ./mock/db.json```
+`npm run json-server -w -p 3333 ./mock/db.json`
