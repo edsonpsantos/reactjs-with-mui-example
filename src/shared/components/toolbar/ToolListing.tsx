@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Button, Icon, Paper, TextField, useTheme } from "@mui/material";
 
+import { Environment } from "../../environment";
+
 interface IToolListingProps {
   textSearch?: string;
   showInputSearch?: boolean;
@@ -36,7 +38,7 @@ export const ToolListing: React.FC<IToolListingProps> = ({
       {showInputSearch && (
         <TextField
           size="small"
-          placeholder="Search..."
+          placeholder={Environment.SEARCH_INPUT}
           value={textSearch}
           onChange={(e) => onChangeSearchText?.(e.target.value)}
         />
