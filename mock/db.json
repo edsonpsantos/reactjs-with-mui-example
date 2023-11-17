@@ -5,6 +5,30 @@
       "fullName": "John Doe",
       "email": "jd@email.com",
       "cityId": 1
+    },
+    {
+      "id": 2,
+      "fullName": "Carl Doe",
+      "email": "jd@email.com",
+      "cityId": 1
+    },
+    {
+      "id": 3,
+      "fullName": "Filipe Doe",
+      "email": "jd@email.com",
+      "cityId": 1
+    },
+    {
+      "id": 4,
+      "fullName": "Marie Doe",
+      "email": "jd@email.com",
+      "cityId": 1
+    },
+    {
+      "id": 5,
+      "fullName": "Antony Doe",
+      "email": "jd@email.com",
+      "cityId": 1
     }
   ]
 }
