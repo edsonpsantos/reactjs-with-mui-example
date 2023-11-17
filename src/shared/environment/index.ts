@@ -2,8 +2,7 @@ export const Environment = {
   /**
    * Defines the number of lines to be loaded by default in listings
    */
-  LINES_LIMIT: 10,
-
+  LINES_LIMIT: 5,
   /**
    * Defines the placeholder text to be displayed in the search input
    */

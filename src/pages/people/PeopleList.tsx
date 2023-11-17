@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import {
   LinearProgress,
+  Pagination,
   Paper,
   Table,
   TableBody,
@@ -20,7 +21,6 @@ import { ToolListing } from "../../shared/components";
 import { LayoutPageBase } from "../../shared/layouts";
 import { useDebounce } from "../../shared/hooks";
 import { Environment } from "../../shared/environment";
-import { Iso } from "@mui/icons-material";
 
 export const PeopleList: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -34,10 +34,14 @@ export const PeopleList: React.FC = () => {
     return searchParams.get("search") || "";
   }, [searchParams]);
 
+  const page = useMemo(() => {
+    return Number(searchParams.get("page") || "1");
+  }, [searchParams]);
+
   useEffect(() => {
     setIsLoading(true);
     debounce(() => {
-      PeopleService.getAll(1, search).then((result) => {
+      PeopleService.getAll(page, search).then((result) => {
         setIsLoading(false);
 
         if (result instanceof Error) {
@@ -50,7 +54,7 @@ export const PeopleList: React.FC = () => {
         }
       });
     });
-  }, [search]);
+  }, [search, page]);
 
   return (
     <LayoutPageBase
@@ -61,7 +65,7 @@ export const PeopleList: React.FC = () => {
           textButtonNew="New Person"
           textSearch={search}
           onChangeSearchText={(text) =>
-            setSearchParams({ search: text }, { replace: true })
+            setSearchParams({ search: text, page: "1" }, { replace: true })
           }
         ></ToolListing>
       }
@@ -96,6 +100,23 @@ export const PeopleList: React.FC = () => {
               <TableRow>
                 <TableCell colSpan={3}>
                   <LinearProgress variant="indeterminate" />
+                </TableCell>
+              </TableRow>
+            )}
+            {totalCount > 0 && totalCount > Environment.LINES_LIMIT && (
+              <TableRow>
+                <TableCell colSpan={3}>
+                  <Pagination
+                    page={page}
+                    onChange={(_, newPage) =>
+                      setSearchParams(
+                        { search, page: newPage.toString() },
+                        { replace: true }
+                      )
+                    }
+                    count={Math.ceil(totalCount / Environment.LINES_LIMIT)}
+                    variant="outlined"
+                  />
                 </TableCell>
               </TableRow>
             )}
