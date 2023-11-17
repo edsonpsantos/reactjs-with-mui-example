@@ -1,10 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import {
+  LinearProgress,
   Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
+  TableFooter,
   TableHead,
   TableRow,
 } from "@mui/material";
@@ -17,6 +19,8 @@ import {
 import { ToolListing } from "../../shared/components";
 import { LayoutPageBase } from "../../shared/layouts";
 import { useDebounce } from "../../shared/hooks";
+import { Environment } from "../../shared/environment";
+import { Iso } from "@mui/icons-material";
 
 export const PeopleList: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -40,7 +44,7 @@ export const PeopleList: React.FC = () => {
           alert(result.message);
           return;
         } else {
-          // console.log(result);
+          console.log(result);
           setRows(result.data);
           setTotalCount(result.totalCount);
         }
@@ -84,6 +88,18 @@ export const PeopleList: React.FC = () => {
               </TableRow>
             ))}
           </TableBody>
+          {!isLoading && totalCount === 0 && (
+            <caption>{Environment.EMPTY_LIST}</caption>
+          )}
+          <TableFooter>
+            {isLoading && (
+              <TableRow>
+                <TableCell colSpan={3}>
+                  <LinearProgress variant="indeterminate" />
+                </TableCell>
+              </TableRow>
+            )}
+          </TableFooter>
         </Table>
       </TableContainer>
     </LayoutPageBase>
