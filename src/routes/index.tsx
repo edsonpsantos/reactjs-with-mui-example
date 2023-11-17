@@ -2,30 +2,36 @@ import React, { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { useDrawerContext } from "../shared/context";
-import { Dashboard } from "../pages";
+import { PeopleList, Dashboard } from "../pages";
 
 export const AppRoutes = () => {
   const { setDrawerOptions } = useDrawerContext();
 
-
   useEffect(() => {
     setDrawerOptions([
       {
-        label:'Home',
-        icon: 'home',
-        path: '/home'
+        label: "Home",
+        icon: "home",
+        path: "/home",
+      },
+      {
+        label: "People",
+        icon: "people",
+        path: "/people",
+      },
+      {
+        label: "Cities",
+        icon: "location_city",
+        path: "/cities",
       },
     ]);
   }, []);
 
   return (
     <Routes>
-      <Route
-        path="/home"
-        element={
-          <Dashboard />
-        }
-      />
+      <Route path="/home" element={<Dashboard />} />
+      {/* <Route path="/cities" element={<CityList />} /> */}
+      <Route path="/people" element={<PeopleList />} />
       <Route path="*" element={<Navigate to="/home" />} />
     </Routes>
   );

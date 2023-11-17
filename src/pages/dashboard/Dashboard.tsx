@@ -5,8 +5,8 @@ import { ToolbarDetails } from "../../shared/components";
 export const Dashboard = () => {
   return (
     <LayoutPageBase
-      title="Home Page"
-      toolbar={<ToolbarDetails showButtonSaveAndBack showButtonNew />}
+      title="Dashboard"
+      toolbar={<ToolbarDetails showButtonSaveAndBack showButtonNew  />}
     >
       Testing...
     </LayoutPageBase>
