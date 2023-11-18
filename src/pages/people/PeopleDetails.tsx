@@ -1,11 +1,12 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { LinearProgress } from "@mui/material";
+import { Form } from "@unform/web";
 
 import { LayoutPageBase } from "../../shared/layouts";
 import { ToolbarDetails } from "../../shared/components";
 import { PeopleService } from "../../shared/services/api/people/PeopleService";
-import { LinearProgress } from "@mui/material";
+import { VTextField } from "../../shared/forms";
 
 export const PeopleDetails: React.FC = () => {
   const { id = "new" } = useParams<"id">();
@@ -70,6 +71,10 @@ export const PeopleDetails: React.FC = () => {
         ></ToolbarDetails>
       }
     >
+      <Form onSubmit={(data) => console.log(data)}>
+        <VTextField name="fullname" />
+        <button type="submit"> submit</button>
+      </Form>
       {isLoading && <LinearProgress variant="indeterminate" />}
 
       <p>People Details {id}</p>
