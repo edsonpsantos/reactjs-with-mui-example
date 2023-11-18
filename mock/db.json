@@ -53,24 +53,6 @@
       "fullName": "Viktor Doe",
       "email": "viktor@email.com",
       "cityId": 1
-    },
-    {
-      "id": 10,
-      "fullName": "joseph Doe",
-      "email": "joseph@email.com",
-      "cityId": 1
-    },
-    {
-      "id": 11,
-      "fullName": "Peter Doe",
-      "email": "peter@email.com",
-      "cityId": 1
-    },
-    {
-      "id": 12,
-      "fullName": "Marco Doe",
-      "email": "marco@email.com",
-      "cityId": 1
     }
   ]
 }

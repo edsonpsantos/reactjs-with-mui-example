@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import {
+  Icon,
+  IconButton,
   LinearProgress,
   Pagination,
   Paper,
@@ -11,7 +13,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import {
   IListPerson,
@@ -25,6 +27,7 @@ import { Environment } from "../../shared/environment";
 export const PeopleList: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { debounce } = useDebounce();
+  const navigate = useNavigate();
 
   const [rows, setRows] = useState<IListPerson[]>([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -56,6 +59,23 @@ export const PeopleList: React.FC = () => {
     });
   }, [search, page]);
 
+  const handleDelete = (id: number) => {
+    //
+    if (window.confirm("Are you sure you want to delete?")) {
+      PeopleService.deleteById(id).then((result) => {
+        if (result instanceof Error) {
+          alert(result.message);
+          return;
+        } else {
+          setRows((oldRows) => {
+            return [...oldRows.filter((oldRow) => oldRow.id !== id)];
+          });
+          alert("Registration deleted successfully");
+        }
+      });
+    }
+  };
+
   return (
     <LayoutPageBase
       title="List of People"
@@ -86,7 +106,16 @@ export const PeopleList: React.FC = () => {
           <TableBody>
             {rows.map((row) => (
               <TableRow key={row.id}>
-                <TableCell></TableCell>
+                <TableCell>
+                  <IconButton onClick={() => handleDelete(row.id)} size="small">
+                    <Icon>delete</Icon>
+                  </IconButton>
+                  <IconButton
+                    onClick={() => navigate(`/people/detalhe/${row.id}`)}
+                  >
+                    <Icon>edit</Icon>
+                  </IconButton>
+                </TableCell>
                 <TableCell>{row.fullName}</TableCell>
                 <TableCell>{row.email}</TableCell>
               </TableRow>

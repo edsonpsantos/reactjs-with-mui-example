@@ -30,8 +30,9 @@ export const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/home" element={<Dashboard />} />
-      {/* <Route path="/cities" element={<CityList />} /> */}
       <Route path="/people" element={<PeopleList />} />
+      <Route path="/people/detalhe/:id" element={<p>People Details</p>} />
+      {/* <Route path="/cities" element={<CityList />} /> */}
       <Route path="*" element={<Navigate to="/home" />} />
     </Routes>
   );
