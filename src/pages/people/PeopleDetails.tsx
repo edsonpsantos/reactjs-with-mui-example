@@ -1,16 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { LinearProgress } from "@mui/material";
+import { FormHandles } from "@unform/core";
 import { Form } from "@unform/web";
 
+import { PeopleService } from "../../shared/services/api/people/PeopleService";
 import { LayoutPageBase } from "../../shared/layouts";
 import { ToolbarDetails } from "../../shared/components";
-import { PeopleService } from "../../shared/services/api/people/PeopleService";
 import { VTextField } from "../../shared/forms";
+
+interface IFormData {
+  email: string;
+  fullName: string;
+  cityId: string;
+}
 
 export const PeopleDetails: React.FC = () => {
   const { id = "new" } = useParams<"id">();
   const navigate = useNavigate();
+
+  const formRef = useRef<FormHandles>(null);
 
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
@@ -32,8 +41,8 @@ export const PeopleDetails: React.FC = () => {
     }
   }, [id]);
 
-  const handleSave = () => {
-    console.log("Save");
+  const handleSave = (data: IFormData) => {
+    console.log(data);
   };
 
   const handleDelete = (id: number) => {
@@ -59,8 +68,8 @@ export const PeopleDetails: React.FC = () => {
           showButtonSaveAndBack
           showButtonDelete={id !== "new"}
           showButtonNew={id !== "new"}
-          onClickButtonSave={handleSave}
-          onClickButtonSaveAndBack={handleSave}
+          onClickButtonSave={() => formRef.current?.submitForm()}
+          onClickButtonSaveAndBack={() => formRef.current?.submitForm()}
           onClickButtonDelete={() => handleDelete(Number(id))}
           onClickButtonBack={() => {
             navigate("/people");
@@ -71,13 +80,12 @@ export const PeopleDetails: React.FC = () => {
         ></ToolbarDetails>
       }
     >
-      <Form onSubmit={(data) => console.log(data)}>
-        <VTextField name="fullname" />
-        <button type="submit"> submit</button>
+      <Form ref={formRef} onSubmit={handleSave}>
+        <VTextField name="fullName" />
+        <VTextField name="email" />
+        <VTextField name="cityId" />
       </Form>
       {isLoading && <LinearProgress variant="indeterminate" />}
-
-      <p>People Details {id}</p>
     </LayoutPageBase>
   );
 };
