@@ -171,7 +171,7 @@ export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
             disableElevation
             variant="outlined"
             onClick={onClickButtonNew}
-            endIcon={<Icon>add</Icon>}
+            startIcon={<Icon>add</Icon>}
           >
             <Typography
               variant="button"
