@@ -2,7 +2,7 @@
   "people": [
     {
       "id": 1,
-      "fullName": "John Doe",
+      "fullName": "Johny Doe",
       "email": "jd@email.com",
       "cityId": 1
     },
@@ -47,6 +47,12 @@
       "fullName": "Viktor Doe",
       "email": "viktor@email.com",
       "cityId": 1
+    },
+    {
+      "id": 10,
+      "fullName": "Joseph Doe",
+      "email": "joseph@doe.com",
+      "cityId": "3"
     }
   ]
 }

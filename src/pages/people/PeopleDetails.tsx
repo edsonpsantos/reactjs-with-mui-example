@@ -12,7 +12,7 @@ import { VTextField } from "../../shared/forms";
 interface IFormData {
   email: string;
   fullName: string;
-  cityId: string;
+  cityId: number;
 }
 
 export const PeopleDetails: React.FC = () => {
@@ -35,14 +35,38 @@ export const PeopleDetails: React.FC = () => {
           navigate("/people");
         } else {
           setName(result.fullName);
-          console.log(result);
+          // console.log(result);
+          formRef.current?.setData(result);
         }
       });
     }
   }, [id]);
 
-  const handleSave = (data: IFormData) => {
-    console.log(data);
+  const handleSave = async (data: IFormData) => {
+    setIsLoading(true);
+    if (id === "new") {
+      await PeopleService.create(data).then((result) => {
+        setIsLoading(false);
+        if (result instanceof Error) {
+          alert(result.message);
+          return;
+        } else {
+          navigate(`/people/details/${result}`);
+        }
+      });
+    } else {
+      PeopleService.updateById(Number(id), { id: Number(id), ...data }).then(
+        (result) => {
+          setIsLoading(false);
+          if (result instanceof Error) {
+            alert(result.message);
+            return;
+          } else {
+            setName(data.fullName);
+          }
+        }
+      );
+    }
   };
 
   const handleDelete = (id: number) => {
@@ -81,9 +105,9 @@ export const PeopleDetails: React.FC = () => {
       }
     >
       <Form ref={formRef} onSubmit={handleSave}>
-        <VTextField name="fullName" />
-        <VTextField name="email" />
-        <VTextField name="cityId" />
+        <VTextField placeholder="Full Name" name="fullName" />
+        <VTextField placeholder="E-mail" name="email" />
+        <VTextField placeholder="City Id" name="cityId" />
       </Form>
       {isLoading && <LinearProgress variant="indeterminate" />}
     </LayoutPageBase>
