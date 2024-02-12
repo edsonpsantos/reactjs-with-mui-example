@@ -4,16 +4,16 @@
 ## ⚛ About this project ⚛
 ...
 
-The repository contains all code based with Typescript and MUI, with access to an external third-party API in near future.
+The repository contains all code based on Typescript and MUI, with access to an external third-party API soon.
 
 ##  👨‍💻 Technologies and Techniques used:
 * ReactJS
 * MUI
-* Typescrit
+* Typescript
 * Good practices
 
 
 ## Important note:
 🚀 This app is under development, so new features are being created daily.
 
-🙏🏽 Thanks for your attention ! 
+🙏🏽 Thanks for your attention! 
